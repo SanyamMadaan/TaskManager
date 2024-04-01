@@ -1,5 +1,4 @@
 const express=require('express');
-const {createTodo}=require('./types');
 const {todo}=require('./db');
 const app=express();
 const cors=require('cors');
@@ -106,23 +105,5 @@ app.delete('/delete',async(req,res)=>{
     })
     res.status(200).json({msg:"Task deleted successfully"})
     })
-
-app.put('/edit', async (req, res) => {
-        const task = req.body.task;
-        const description = req.body.desc;
-        const id = req.query.id;
-        if (!id) {
-          return res.status(411).json({ msg: "Not valid id" });
-        }
-        const updatedTask = await todo.updateOne(
-          { _id: id },
-          { $set: { task, description } }
-        );
-        if (updatedTask.Modified === 1) {
-          res.status(200).json({ msg: "Task updated successfully" });
-        } else {
-          res.status(500).json({ msg: "Task not updated" });
-        }
-      });
       
 app.listen(3000);

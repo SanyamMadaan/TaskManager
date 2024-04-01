@@ -21,6 +21,7 @@ export function Signin(){
             });
             if(response){
                 const token=response.data.token;
+                console.log(token);
                 localStorage.setItem("token","Bearer "+token);
                 alert('welcome back');
                 navigate('/create');

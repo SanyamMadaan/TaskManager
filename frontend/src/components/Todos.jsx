@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export function Todos() {
   const [tasks, setTasks] = useState([]);
-  const [access, setAccess] = useState(true);
 
   async function fetchTasks() {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        setAccess(true);
         const response = await axios.get(`http://localhost:3000/todos`, {
           headers: {
             token
           }
         });
         setTasks(response.data);
-      } else {
-        setAccess(false);
       }
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -44,8 +41,8 @@ export function Todos() {
 
   return (
     <div className="border-2 border-black rounded-md m-5">
-      {access ? (
-        tasks.length > 0 ? (
+    
+        {tasks.length > 0 ? (
           tasks.map(task => (
             <div key={task._id} className="p-2 m-3">
               <div className="flex justify-between">
@@ -65,9 +62,7 @@ export function Todos() {
         ) : (
           <h1>No tasks added yet</h1>
         )
-      ) : (
-        <h1>Alert: You don't have access to this page</h1>
-      )}
+        }
     </div>
   );
 }

@@ -10,11 +10,8 @@ const authmiddleware = (req, res, next) => {
 
     try {
         const receivedToken = authHeader.split(' ')[1];
-        console.log("Received token:", receivedToken);
         const decoded = jwt.verify(receivedToken, key);
-        console.log("Decoded token:", decoded);
         req.userId = decoded.Id; // Set userId to the decoded token's userId property
-        console.log("Inside middleware, userId:", req.userId);
         next();
     } catch (e) {
         console.error("Error in token verification:", e);
