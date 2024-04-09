@@ -42,17 +42,8 @@ export function Signup() {
 
   return (
     <>
-    <div className="flex justify-between  border-2 p-2 rounded h-1/5 bg-black">
-    <div>
-  </div>
-  <div>
-  <h1 className="text-center font-bold p-2 text-2xl underline text-white">WELCOME TO TASK MANAGER</h1>
-  </div>
-  <div>
-  </div>
-  </div>
-    <div className="bg-slate-300 h-screen flex justify-center ">
-      <div className="bg-white h-max w-2/4 p-3.5 px-4 rounded md:w-1/4 mt-1.5">
+    <div className="bg-black h-screen flex justify-center  ">
+      <div className="bg-white h-max w-2/4 p-3.5 px-4 rounded md:w-1/4 mt-10">
         <Heading title={"Sign Up"}></Heading>
         <SubTitle subtitle={"Enter your information to create an account"}></SubTitle>
         <form onSubmit={handleSubmit}>

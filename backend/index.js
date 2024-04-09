@@ -105,5 +105,25 @@ app.delete('/delete',async(req,res)=>{
     })
     res.status(200).json({msg:"Task deleted successfully"})
     })
-      
+
+    app.post('/update', async (req, res) => {
+        const { title, description } = req.body;
+        const id = req.query.id;
+    
+        try {
+            const result = await todo.updateOne(
+                { _id: id },
+                { $set: { title, description } }
+            );
+            if(result.matchedCount>0 || result.modifiedCount>0){
+                console.log(result);
+                return res.status(200).json({ msg: "Task updated successfully" });
+            }
+            return res.status(404).json({msg:"Wrong id passed"});
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({ msg: "Error while updating task" });
+        }
+    })
+        
 app.listen(3000);
