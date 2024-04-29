@@ -4,12 +4,13 @@ import axios from "axios";
 
 export function Todos() {
   const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
 
   async function fetchTasks() {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        const response = await axios.get(`http://localhost:3000/todos`, {
+        const response = await axios.get(`http://localhost:4000/todos`, {
           headers: {
             token
           }
@@ -29,7 +30,7 @@ export function Todos() {
     const confirmed = window.confirm("Are you sure you want to delete this task?");
     if (confirmed) {
       try {
-        await axios.delete(`http://localhost:3000/delete?id=${taskId}`);
+        await axios.delete(`http://localhost:4000/delete?id=${taskId}`);
         setTasks(prevTasks => prevTasks.filter(task => task._id !== taskId));
         alert('Task deleted successfully');
       } catch (error) {
@@ -48,12 +49,11 @@ export function Todos() {
     let description = prompt("Enter the modified description", taskToEdit.description);
     
     try {
-      const response = await axios.post(`http://localhost:3000/update?id=${taskId}`, {
+      const response = await axios.post(`http://localhost:4000/update?id=${taskId}`, {
         title,
         description
       });
-      console.log(response);
-      if(response.status==200){
+      if (response.status === 200) {
         alert('Task updated successfully');
         const updatedTasks = tasks.map(task => {
           if (task._id === taskId) {
@@ -64,13 +64,11 @@ export function Todos() {
               };
           }
           return task;
-      });
-      setTasks(updatedTasks);
-      }
-      else{
+        });
+        setTasks(updatedTasks);
+      } else {
         alert("Error while updating task");
       }
-      
     } catch (e) {
       alert('Error while updating task');
       console.error('Error while updating task:', e);
@@ -78,30 +76,28 @@ export function Todos() {
   }
   
   return (
-    <div className=" m-5">
-    
-        {tasks.length > 0 ? (
-          tasks.map(task => (
-            <div key={task._id} className="p-2 m-3 border-2 border-black rounded-md">
-              <div className="flex justify-between">
-                <div>
-                  <h1 className="font-medium text-xl underline">Task</h1>
-                  <span className="font-md text-md">{task.title}</span>
-                </div>
-                <div className="flex justify-between">
-                  <button className="bg-red-800 text-white cursor-pointer mr-1 p-3" onClick={() => deleteTask(task._id)}>Delete</button>
-                  <button className="bg-green-500 text-white cursor-pointer mr-2 p-3" onClick={()=>editTask(task._id)}>EDIT</button>
-                </div>
+    <div className="m-5">
+      {tasks.length > 0 ? (
+        tasks.map(task => (
+          <div key={task._id} className="p-2 m-3 border-2 border-black rounded-md">
+            <div className="flex justify-between">
+              <div>
+                <h1 className="font-medium text-xl underline">Task</h1>
+                <span className="font-md text-md">{task.title}</span>
               </div>
-              <h2 className="font-medium text-xl underline">Description</h2>
-              <span>{task.description}</span>
-              <hr className="bg-black" />
+              <div className="flex justify-between">
+                <button className="bg-red-800 text-white cursor-pointer mr-1 p-3" onClick={() => deleteTask(task._id)}>Delete</button>
+                <button className="bg-green-500 text-white cursor-pointer mr-2 p-3" onClick={()=>editTask(task._id)}>EDIT</button>
+              </div>
             </div>
-          ))
-        ) : (
-          <h1>No tasks added yet</h1>
-        )
-        }
+            <h2 className="font-medium text-xl underline">Description</h2>
+            <span>{task.description}</span>
+            <hr className="bg-black" />
+          </div>
+        ))
+      ) : (
+        <h1>No tasks added yet</h1>
+      )}
     </div>
   );
 }

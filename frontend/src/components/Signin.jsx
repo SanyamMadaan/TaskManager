@@ -1,9 +1,9 @@
-import { Heading } from "../smallcomponents/Heading"
+import { Heading } from "../smallcomponents/Heading";
 import { SubTitle } from "../smallcomponents/SubTitle";
 import { Inputs } from "../smallcomponents/Inputs";
 import { Button } from "../smallcomponents/Button";
 import { BottomWarning } from "../smallcomponents/BottomWarninng";
-import { useState} from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
@@ -12,11 +12,10 @@ export function Signin() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-   
     async function handleClick(event) {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/signin', {
+            const response = await axios.post('http://localhost:4000/signin', {
                 email,
                 password
             });
@@ -38,8 +37,8 @@ export function Signin() {
 
     return (
         <>
-            <div className="bg-black h-screen flex justify-center items-center">
-                <div className="bg-white h-max w-2/4 p-2 rounded md:w-1/4 px-4 mt-12">
+            <div className="bg-black min-h-screen flex justify-center items-center">
+                <div className="bg-white w-full max-w-md p-2 rounded-md md:w-1/3 px-4 mt-12">
                     <Heading title={"Sign In"} />
                     <SubTitle subtitle={"Enter your credentials to access your account"} />
                     <form onSubmit={handleClick}>
@@ -49,7 +48,7 @@ export function Signin() {
                     </form>
                     <BottomWarning label={"Don't have an account ?"} to={"/signup"} buttontext={"Sign Up"} />
                 </div>
-                </div>
+            </div>
         </>
     )
 }
