@@ -8,17 +8,21 @@ export function CreateTodo() {
   const [description, setDescription] = useState('');
 
   const addTask = async (e) => {
+    console.log('func called');
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
+      console.log('token from local storage');
       const response = await axios.post('http://localhost:4000/todo', {
         title,
         description
-      }, {
-        headers: {
+      },{
+        headers:{
           token
         }
-      });
+      }
+      );
+      console.log('sent response');
       alert('Congratulations task added successfully');
       setTitle("");
       setDescription("");
@@ -41,7 +45,7 @@ export function CreateTodo() {
         <div className="flex flex-col justify-center border-2 border-black rounded-md w-full h-2/3 max-w-md mt-12 bg-white">
           <h2 className="text-center font-bold text-xl underline">ADD TASK</h2>
 
-          <form className="m-5">
+          <form className="m-5" onSubmit={addTask}>
             <label className="font-medium">Task</label>
             <input
               className="border-2 border-black w-full p-3 mb-1 mt-1 text-black"

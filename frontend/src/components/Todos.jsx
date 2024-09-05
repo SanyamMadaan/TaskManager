@@ -6,23 +6,23 @@ export function Todos() {
   const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
 
-  async function fetchTasks() {
-    try {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const response = await axios.get(`http://localhost:4000/todos`, {
-          headers: {
-            token
-          }
-        });
-        setTasks(response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    }
-  }
 
   useEffect(() => {
+    async function fetchTasks() {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const response = await axios.get(`http://localhost:4000/todos`, {
+            headers: {
+              token
+            }
+          });
+          setTasks(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    }
     fetchTasks();
   }, []);
 

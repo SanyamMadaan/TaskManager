@@ -1,7 +1,6 @@
 import { Heading } from "../smallcomponents/Heading";
 import { SubTitle } from "../smallcomponents/SubTitle";
 import { Inputs } from "../smallcomponents/Inputs";
-import { Button } from "../smallcomponents/Button";
 import { BottomWarning } from "../smallcomponents/BottomWarninng";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +47,7 @@ export function Signup() {
             <Inputs label={"Last Name"} type={"text"} placeholder={"Doe"} onChange={(e) => setLastname(e.target.value)} />
             <Inputs label={"Email"} type={"email"} placeholder={"johndoe@example.com"} onChange={(e) => setEmail(e.target.value)} />
             <Inputs label={"Password"} type={"password"} onChange={(e) => setPassword(e.target.value)} />
-            <Button redirect={"Sign Up"} />
+            <button>Sign Up</button>
           </form>
           <BottomWarning label={"Already have an account? "} to={"/"} buttontext={"Sign in"} />
         </div>

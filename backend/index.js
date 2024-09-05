@@ -23,7 +23,7 @@ if(existinguser){
     const token=jwt.sign({Id},key);
     return res.status(200).json({"token":token})
 }
-return res.status(411).json("User not exist")
+return res.status(404).json("User not exist")
 }
 catch(e){
     console.log("Error while finding user",e);

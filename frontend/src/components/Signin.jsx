@@ -10,28 +10,33 @@ import axios from 'axios';
 export function Signin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [btn,setBtn]=useState('Sign in');
     const navigate = useNavigate();
 
     async function handleClick(event) {
         event.preventDefault();
         try {
+            setBtn('Signing in...');
             const response = await axios.post('http://localhost:4000/signin', {
                 email,
                 password
             });
-            if (response) {
+            if (response.status===200) {
                 const token = response.data.token;
                 console.log(token);
                 localStorage.setItem("token", "Bearer " + token);
                 alert('Welcome back');
                 navigate('/create');
             }
-            if (!response) {
+            else {
+                setBtn('Sign in');
                 alert("No user Found...Redirecting you to signup page");
                 navigate('/signup');
             }
         } catch (e) {
-            alert("No user Found");
+            setBtn('Sign in');
+            console.log(e.response.data);
+            alert(e.response.data);
         }
     }
 
@@ -44,7 +49,7 @@ export function Signin() {
                     <form onSubmit={handleClick}>
                         <Inputs onChange={(e) => setEmail(e.target.value)} placeholder={"Johndoe@example.com"} label={"Email"} type={"email"} />
                         <Inputs onChange={(e) => setPassword(e.target.value)} placeholder={"password"} label={"Password"} type={"password"} />
-                        <Button redirect={"Sign in"} />
+                        <Button redirect={btn} />
                     </form>
                     <BottomWarning label={"Don't have an account ?"} to={"/signup"} buttontext={"Sign Up"} />
                 </div>
