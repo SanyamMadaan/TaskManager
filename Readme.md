@@ -1,8 +1,6 @@
 <h1>Todo App</h1>
 
-<li>Anyone can create a todo</li>
-<li>Anyone can see existing to do</li>
-<li>Anyone can mark a todo as done</li>
+<h1>SIMPLE TASK MANAGER WEBSITE PERFORMING CRUD OPERATIONS</h1>
 
 ![Screenshot 2024-05-23 101702](https://github.com/SanyamMadaan/TaskManager/assets/124160436/cae18799-5089-414d-844a-f2c503949797)
 ![Screenshot 2024-05-23 101741](https://github.com/SanyamMadaan/TaskManager/assets/124160436/bffab00e-c14a-4290-8f36-d8a75f719671)
